@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7th Anniversary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.8s ease;
+        }
+
+        .password-screen {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .message-screen {
+            display: none;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .message-screen.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .password-input {
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            margin: 20px;
+            width: 300px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .password-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.05);
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .message {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            margin: 40px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        .message-number {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .heart {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin: 30px 0;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .btn-nav {
+            padding: 12px 30px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 15px;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); }
+            to { text-shadow: 1px 1px 20px rgba(255, 255, 255, 0.3); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .message {
+                font-size: 1.4rem;
+            }
+            
+            .password-input {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Password Screen -->
+        <div class="password-screen" id="passwordScreen">
+            <h1>💕 For My Beautiful Wife 💕</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Please enter the password to continue</p>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Enter password...">
+            <br>
+            <button class="btn" onclick="checkPassword()">Enter</button>
+            <div class="error-message" id="errorMessage">Incorrect password. Try again! 💕</div>
+        </div>
+
+        <!-- Message Screens -->
+        <div class="message-screen" id="message1">
+            <div class="message-number">Message 1 of 5</div>
+            <div class="message">Seven years ago, we began a journey that changed my life forever.</div>
+            <div class="heart">💕</div>
+            <div class="navigation">
+                <button class="btn-nav" disabled>Previous</button>
+                <button class="btn-nav" onclick="nextMessage()">Next</button>
+            </div>
+        </div>
+
+        <div class="message-screen" id="message2">
+            <div class="message-number">Message 2 of 5</div>
+            <div class="message">Through every laugh, every challenge, and every moment in between, you've been my constant.</div>
+            <div class="heart">💕</div>
+            <div class="navigation">
+                <button class="btn-nav" onclick="previousMessage()">Previous</button>
+                <button class="btn-nav" onclick="nextMessage()">Next</button>
+            </div>
+        </div>
+
+        <div class="message-screen" id="message3">
+            <div class="message-number">Message 3 of 5</div>
+            <div class="message">Your love has been my strength, and your presence my greatest blessing.</div>
+            <div class="heart">💕</div>
+            <div class="navigation">
+                <button class="btn-nav" onclick="previousMessage()">Previous</button>
+                <button class="btn-nav" onclick="nextMessage()">Next</button>
+            </div>
+        </div>
+
+        <div class="message-screen" id="message4">
+            <div class="message-number">Message 4 of 5</div>
+            <div class="message">I am endlessly grateful for the memories we've made and the life we continue to build together.</div>
+            <div class="heart">💕</div>
+            <div class="navigation">
+                <button class="btn-nav" onclick="previousMessage()">Previous</button>
+                <button class="btn-nav" onclick="nextMessage()">Next</button>
+            </div>
+        </div>
+
+        <div class="message-screen" id="message5">
+            <div class="message-number">Final Message</div>
+            <div class="message">I love you so much, and Happy 7th Anniversary, my lovely Wife. ❤️</div>
+            <div class="heart">❤️💕❤️</div>
+            <div class="navigation">
+                <button class="btn-nav" onclick="previousMessage()">Previous</button>
+                <button class="btn-nav" onclick="startOver()">Start Over</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMessage = 0;
+        const totalMessages = 5;
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (password.toLowerCase() === 'my husband') {
+                document.getElementById('passwordScreen').style.display = 'none';
+                showMessage(1);
+            } else {
+                errorMessage.classList.add('show');
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+                
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        function showMessage(messageNum) {
+            // Hide all message screens
+            for (let i = 1; i <= totalMessages; i++) {
+                document.getElementById(`message${i}`).classList.remove('active');
+            }
+            
+            // Show the selected message
+            document.getElementById(`message${messageNum}`).classList.add('active');
+            currentMessage = messageNum;
+        }
+
+        function nextMessage() {
+            if (currentMessage < totalMessages) {
+                showMessage(currentMessage + 1);
+            }
+        }
+
+        function previousMessage() {
+            if (currentMessage > 1) {
+                showMessage(currentMessage - 1);
+            }
+        }
+
+        function startOver() {
+            document.getElementById(`message${currentMessage}`).classList.remove('active');
+            document.getElementById('passwordScreen').style.display = 'block';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordInput').focus();
+            currentMessage = 0;
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Focus on password input when page loads
+        window.onload = function() {
+            document.getElementById('passwordInput').focus();
+        };
+    </script>
+</body>
+</html>
